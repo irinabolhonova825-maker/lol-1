@@ -1,0 +1,23 @@
+# Виртуальное окружение
+venv/
+.venv/
+
+# Файлы с секретами
+.env
+
+# Файлы Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Редакторы и IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Логи и временные файлы
+*.log
+*.tmp
+.DS_Store
