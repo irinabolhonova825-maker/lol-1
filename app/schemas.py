@@ -26,7 +26,7 @@ class BookBase(BaseModel):
     description: Optional[str] = None
     price: float
     url: Optional[str] = None
-    category: int  # ID категории
+    category: int
 
 class BookCreate(BookBase):
     pass
@@ -41,5 +41,5 @@ class BookUpdate(BaseModel):
 class BookResponse(BookBase):
     id: int
 
-    class Config:
-        orm_mode = True
+class Config:
+    orm_mode = True

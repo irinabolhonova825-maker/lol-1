@@ -27,7 +27,16 @@ def delete_category(db: Session, category_id: int):
         db.commit()
         return True
     return False
-
+    
+def update_category(db: Session, category_id: int, title: str):
+    """Обновить название категории"""
+    db_category = get_category_by_id(db, category_id)
+    if db_category:
+        db_category.title = title
+        db.commit()
+        db.refresh(db_category)
+        return db_category
+    return None
 
 # ========== CRUD для книг ==========
 
@@ -45,9 +54,12 @@ def create_book(db: Session, title: str, description: str, price: float, categor
     db.refresh(db_book)
     return db_book
 
-def get_books(db: Session, skip: int = 0, limit: int = 100):
-    """Получить список книг"""
-    return db.query(models.Book).offset(skip).limit(limit).all()
+def get_books(db: Session, skip: int = 0, limit: int = 100, category_id: int = None):
+    """Получить список книг с возможной фильтрацией по категории"""
+    query = db.query(models.Book)
+    if category_id is not None:
+        query = query.filter(models.Book.category == category_id)
+    return query.offset(skip).limit(limit).all()
 
 def get_book_by_id(db: Session, book_id: int):
     """Получить книгу по ID"""

@@ -19,18 +19,7 @@ def get_books(
     category_id: Optional[int] = Query(None, description="Фильтр по ID категории"),
     db: Session = Depends(get_db)
 ):
-    """
-    Возвращает список книг.
-    Можно отфильтровать по категории: ?category_id=1
-    """
-    # Получаем все книги
-    all_books = crud.get_books(db, skip=skip, limit=limit)
-    
-    # Если указан category_id — фильтруем
-    if category_id:
-        return [book for book in all_books if book.category == category_id]
-    
-    return all_books
+    return crud.get_books(db, skip=skip, limit=limit, category_id=category_id)
 
 
 # 2. GET /books/{id} — получить ОДНУ книгу по ID
